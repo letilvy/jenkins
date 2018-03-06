@@ -5,6 +5,12 @@ var PATH = require("path");
 var CHILD_PROC = require("child_process");
 var UTIL = require("util");
 
+/**
+ * Home directory of Jenkins here is "/var/lib/jenkins" 
+*/
+var HOME_JENKINS = "/var/lib/jenkins";
+
+
 function deleteDir(sDir, fnCallback){
 	CHILD_PROC.exec(
 		UTIL.format('rm -rf %s', sDir), fnCallback);
@@ -40,10 +46,16 @@ function travelDir(sDir, fnCallback){
 	});
 }
 
-//Home directory of Jenkins here is "/var/lib/jenkins"
-travelDir("/var/lib/jenkins/jobs", function(sPath){
+
+//Delete jobs
+travelDir(HOME_JENKINS + "/jobs", function(sPath){
 	deleteDir(sPath, function(){
 		console.log("Delete " + sPath);
 	});
+});
+
+//Delete workspace
+deleteDir(HOME_JENKINS + "/workspace/*", function(){
+	console.log("Delete " + HOME_JENKINS + "/workspace/*");
 });
 
