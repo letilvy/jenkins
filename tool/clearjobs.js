@@ -1,4 +1,14 @@
 //DO run this command with super admin, or delete operation may fail
+/**
+  To schedule this cleanup task run regularly on Linux, use command:
+      sudo crontab -e
+  Add such as following statements at the end of the opened file:
+      # Schedule task for Jenkins server space clean-up
+      #   Task run at UTC 22:00pm ( China time 06:00am and Germany time 00:00am) everyday
+      #   Use "0 22 * * 0" to run at 22:00 every Sunday
+      0 22 * * * sudo node /home/i306293/git/jenkins/tool/clearjobs.js
+  Save and quit.  
+*/
 
 var FS = require("fs");
 var PATH = require("path");
