@@ -14,7 +14,24 @@ function travelDir(sDir, fnCallback){
 	FS.readdirSync(sDir).forEach(function(sFile){
 		var sPath = PATH.join(sDir, sFile);
 		if(FS.existsSync(sPath) && FS.statSync(sPath).isDirectory()){
-			if(sFile === "builds" || sFile === "modules"){ //Only delete the "builds" and "modules" folders
+			if(sFile === "builds"){
+				//Only reserve the final build
+				var aBuild = [], sBuildPath;
+				FS.readdirSync(sPath).forEach(function(sBuild){
+					sBuildPath = PATH.join(sPath, sBuild);
+					if(sBuild.match(/^\d+$/)){
+						aBuild.push(sBuildPath);
+					}else{
+						fnCallback(sBuildPath);
+					}
+				});
+
+				aBuild.sort().forEach(function(sBuildPath, index, aSortedBuild){
+					if(index < aSortedBuild.length - 1){
+						fnCallback(sBuildPath);
+					}
+				});
+			}else if(sFile === "modules" || sFile === "cobertura"){
 				fnCallback(sPath);
 			}else{
 				travelDir(sPath, fnCallback);
