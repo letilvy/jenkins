@@ -54,8 +54,13 @@ travelDir(HOME_JENKINS + "/jobs", function(sPath){
 	});
 });
 
-//Delete workspace
-deleteDir(HOME_JENKINS + "/workspace/*", function(){
-	console.log("Delete " + HOME_JENKINS + "/workspace/*");
+//Other directories for delete
+[
+	(HOME_JENKINS + "/workspace/*"),
+	(HOME_JENKINS + "/.m2/repository/sap/*"),
+	(HOME_JENKINS + "/.m2/repository/com/sap/*")
+].forEach(function(sDir){
+	deleteDir(sDir, function(){
+		console.log("Delete " + sDir);
+	});
 });
-
