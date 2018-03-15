@@ -43,7 +43,7 @@ function travelDir(sDir, fnCallback){
 				});
 
 				aBuild.sort().forEach(function(sBuildPath, index, aSortedBuild){
-					if(index < aSortedBuild.length - 1){
+					if(index < aSortedBuild.length - 3){
 						fnCallback(sBuildPath);
 					}
 				});
