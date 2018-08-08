@@ -4,7 +4,7 @@
       sudo crontab -e
   Add such as following statements at the end of the opened file:
       # Schedule task for Jenkins server space clean-up
-      #   Task run at UTC 22:00pm ( China time 06:00am and Germany time 00:00am) everyday
+      #   Task run at UTC 22:00pm (China time 06:00am and Germany time 00:00am) everyday
       #   Use "0 22 * * 0" to run at 22:00 every Sunday
       0 22 * * * sudo node /home/i306293/git/jenkins/tool/clearjobs.js
   Save and quit.  
@@ -31,7 +31,7 @@ function travelDir(sDir, fnCallback){
 		var sPath = PATH.join(sDir, sFile);
 		if(FS.existsSync(sPath) && FS.statSync(sPath).isDirectory()){
 			if(sFile === "builds"){
-				//Only reserve the final build
+				//Only reserve the final 3 builds
 				var aBuild = [], sBuildPath;
 				FS.readdirSync(sPath).forEach(function(sBuild){
 					sBuildPath = PATH.join(sPath, sBuild);
